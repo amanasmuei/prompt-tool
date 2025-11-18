@@ -55,7 +55,7 @@ Transform your AI prompts from amateur to professional with instant optimization
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/easyprompt.git
+git clone https://github.com/amanasmuei/easyprompt.git
 cd easyprompt
 
 # Install dependencies
@@ -349,8 +349,8 @@ MIT License - see [LICENSE](./LICENSE) file for details
 
 ## Support
 
-- **Issues:** [GitHub Issues](https://github.com/yourusername/easyprompt/issues)
-- **Discussions:** [GitHub Discussions](https://github.com/yourusername/easyprompt/discussions)
+- **Issues:** [GitHub Issues](https://github.com/amanasmuei/easyprompt/issues)
+- **Discussions:** [GitHub Discussions](https://github.com/amanasmuei/easyprompt/discussions)
 - **Documentation:** [Architecture Guide](./ARCHITECTURE.md)
 
 ---
