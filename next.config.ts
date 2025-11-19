@@ -1,33 +1,31 @@
 import type { NextConfig } from 'next'
 
 const nextConfig: NextConfig = {
-  // Enable experimental features for better performance
-  experimental: {
-    // Turbopack is enabled by default when using --turbo flag
-    turbo: {},
-  },
-
   // TypeScript configuration
   typescript: {
     // Fail build on type errors (strict mode)
     ignoreBuildErrors: false,
   },
 
-  // ESLint configuration
-  eslint: {
-    // Fail build on lint errors
-    ignoreDuringBuilds: false,
-  },
+
 
   // Optimize images
   images: {
     remotePatterns: [],
+    formats: ['image/avif', 'image/webp'],
   },
 
   // Environment variables exposed to browser
   env: {
     APP_NAME: 'EasyPrompt',
     APP_VERSION: '1.0.0',
+  },
+
+  // Logging configuration
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
   },
 
   // Headers for security
@@ -47,6 +45,10 @@ const nextConfig: NextConfig = {
           {
             key: 'X-XSS-Protection',
             value: '1; mode=block',
+          },
+          {
+            key: 'Referrer-Policy',
+            value: 'strict-origin-when-cross-origin',
           },
         ],
       },
