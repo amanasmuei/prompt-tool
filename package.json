@@ -18,7 +18,22 @@
     "clean": "rm -rf .next node_modules",
     "test": "vitest",
     "test:ui": "vitest --ui",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "db:start": "./scripts/dev-db.sh start",
+    "db:start:tools": "./scripts/dev-db.sh start --tools",
+    "db:stop": "./scripts/dev-db.sh stop",
+    "db:restart": "./scripts/dev-db.sh restart",
+    "db:status": "./scripts/dev-db.sh status",
+    "db:logs": "./scripts/dev-db.sh logs",
+    "db:clean": "./scripts/dev-db.sh clean",
+    "db:reset": "./scripts/dev-db.sh reset-db",
+    "db:psql": "./scripts/dev-db.sh psql",
+    "db:backup": "./scripts/dev-db.sh backup",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio",
+    "prisma:reset": "prisma migrate reset",
+    "setup:dev": "npm run db:start && npm run prisma:generate && npm run prisma:migrate"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.30.1",
