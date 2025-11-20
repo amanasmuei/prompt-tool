@@ -68,16 +68,25 @@ export async function comparePrompts(
 ): Promise<Map<ProviderType, OptimizationResult | Error>> {
     const results = new Map<ProviderType, OptimizationResult | Error>()
 
-    await Promise.allSettled(
-        providerNames.map(async (providerName) => {
-            try {
-                const result = await optimizePrompt(prompt, undefined, providerName)
-                results.set(providerName, result)
-            } catch (error) {
-                results.set(providerName, error instanceof Error ? error : new Error('Unknown error'))
+    const promises = providerNames.map(async (providerName) => {
+        try {
+            const provider = providerFactory.getProvider(providerName)
+
+            // Use the first available model or default model
+            let modelToUse = provider.defaultModel
+            if (provider.models.length > 0) {
+                modelToUse = provider.models[0].id
             }
-        })
-    )
+
+            const result = await optimizePrompt(prompt, undefined, providerName, modelToUse)
+            results.set(providerName, result)
+        } catch (error) {
+            console.error(`Compare failed for ${providerName}:`, error)
+            results.set(providerName, error instanceof Error ? error : new Error('Unknown error'))
+        }
+    })
+
+    await Promise.allSettled(promises)
 
     return results
 }

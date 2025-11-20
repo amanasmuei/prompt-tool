@@ -27,7 +27,15 @@ export default function ComparePage() {
                 .slice(0, 3)
                 .map(p => p.name)
 
+            if (availableProviders.length === 0) {
+                console.warn('No available providers for comparison')
+                setIsComparing(false)
+                return
+            }
+
+            console.log('Comparing with providers:', availableProviders)
             const comparisonResults = await comparePrompts(prompt, availableProviders)
+            console.log('Comparison results:', comparisonResults)
             setResults(comparisonResults)
         } catch (error) {
             console.error('Comparison failed:', error)
@@ -93,6 +101,23 @@ export default function ComparePage() {
                             </div>
                         </div>
                     </Card>
+
+                    {/* No providers warning */}
+                    {!isComparing && results.size === 0 && providers.filter(p => p.available).length === 0 && (
+                        <Card className="notion-card p-12 text-center animate-in">
+                            <div className="max-w-md mx-auto space-y-4">
+                                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-amber-100 mb-4">
+                                    <AlertCircle className="h-8 w-8 text-amber-600" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-gray-900">
+                                    No Providers Available
+                                </h3>
+                                <p className="text-gray-600">
+                                    Configure at least one AI provider to use the comparison feature. Check the Providers page for setup instructions.
+                                </p>
+                            </div>
+                        </Card>
+                    )}
 
                     {/* Results Grid */}
                     {results.size > 0 && (
