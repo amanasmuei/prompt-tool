@@ -1,7 +1,8 @@
 'use server'
 
 import { providerFactory } from '../providers/factory'
-import { ProviderType } from '../providers/types'
+import { ProviderType, OptimizationResult } from '../providers/types'
+import { optimizePrompt } from './optimize'
 
 export interface ComparisonResult {
     provider: ProviderType
@@ -58,4 +59,25 @@ export async function compareProviders(
             }
         }
     })
+}
+
+// New function for comparing prompt optimizations
+export async function comparePrompts(
+    prompt: string,
+    providerNames: ProviderType[]
+): Promise<Map<ProviderType, OptimizationResult | Error>> {
+    const results = new Map<ProviderType, OptimizationResult | Error>()
+
+    await Promise.allSettled(
+        providerNames.map(async (providerName) => {
+            try {
+                const result = await optimizePrompt(prompt, undefined, providerName)
+                results.set(providerName, result)
+            } catch (error) {
+                results.set(providerName, error instanceof Error ? error : new Error('Unknown error'))
+            }
+        })
+    )
+
+    return results
 }

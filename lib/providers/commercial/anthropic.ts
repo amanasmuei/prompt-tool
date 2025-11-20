@@ -32,11 +32,13 @@ export class AnthropicProvider extends BaseProvider {
         isOpenAICompatible: false,
         supportsModelDiscovery: false,
         icon: 'anthropic-icon',
+        description: 'Most intelligent AI model with exceptional reasoning',
         documentation: 'https://docs.anthropic.com',
     }
 
     readonly capabilities: ProviderCapabilities = {
         streaming: true,
+        supportsStreaming: true,
         functionCalling: true,
         vision: true,
         embeddings: false,

@@ -23,6 +23,7 @@ export interface ProviderMetadata {
   isOpenAICompatible: boolean
   supportsModelDiscovery: boolean
   icon: string
+  description: string
   documentation: string
   defaultEndpoint?: string
 }
@@ -43,6 +44,7 @@ export interface Model {
 
 export interface ProviderCapabilities {
   streaming: boolean
+  supportsStreaming: boolean
   functionCalling: boolean
   vision: boolean
   embeddings: boolean

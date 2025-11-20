@@ -30,13 +30,15 @@ export class OllamaProvider extends BaseProvider {
         requiresApiKey: false,
         isOpenAICompatible: false,
         supportsModelDiscovery: true,
-        icon: 'ollama-icon', // TODO: Add icon
-        documentation: 'https://ollama.ai/library',
+        icon: 'ollama-icon',
+        description: '100% local, private, and free AI models',
+        documentation: 'https://ollama.ai/docs',
         defaultEndpoint: 'http://127.0.0.1:11434',
     }
 
     readonly capabilities: ProviderCapabilities = {
         streaming: true,
+        supportsStreaming: true,
         functionCalling: false, // Varies by model, assuming false for safety
         vision: true, // Varies by model
         embeddings: true,

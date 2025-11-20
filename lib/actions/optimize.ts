@@ -2,32 +2,38 @@
 
 import { providerFactory } from '../providers/factory'
 import { ProviderType, AnalysisResult, OptimizationResult } from '../providers/types'
+import { analyzePrompt } from './analyze'
 
 export async function optimizePrompt(
     prompt: string,
-    analysis: AnalysisResult,
-    providerName: ProviderType,
+    analysis?: AnalysisResult,
+    providerName?: ProviderType,
     model?: string
 ): Promise<OptimizationResult> {
     if (!prompt) {
         throw new Error('Prompt is required')
     }
 
+    const targetProvider = providerName || 'ollama'
+
     try {
-        const provider = providerFactory.getProvider(providerName)
-        const result = await provider.optimizePrompt(prompt, analysis, model)
+        // If no analysis provided, analyze first
+        const promptAnalysis = analysis || await analyzePrompt(prompt, targetProvider, model)
+
+        const provider = providerFactory.getProvider(targetProvider)
+        const result = await provider.optimizePrompt(prompt, promptAnalysis, model)
 
         return {
             original: prompt,
             optimized: result.text,
             improvements: result.improvements,
-            analysis,
-            provider: providerName,
+            analysis: promptAnalysis,
+            provider: targetProvider,
             model: model || provider.defaultModel,
             timestamp: new Date().toISOString(),
         }
     } catch (error) {
-        console.error(`[Action] Optimization failed for ${providerName}:`, error)
+        console.error(`[Action] Optimization failed for ${targetProvider}:`, error)
         throw new Error(error instanceof Error ? error.message : 'Failed to optimize prompt')
     }
 }

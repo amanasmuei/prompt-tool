@@ -30,11 +30,13 @@ export class GoogleProvider extends BaseProvider {
         isOpenAICompatible: false,
         supportsModelDiscovery: false,
         icon: 'google-icon',
-        documentation: 'https://ai.google.dev',
+        description: 'Fast, capable AI with multimodal support',
+        documentation: 'https://ai.google.dev/docs',
     }
 
     readonly capabilities: ProviderCapabilities = {
         streaming: true,
+        supportsStreaming: true,
         functionCalling: true,
         vision: true,
         embeddings: true,

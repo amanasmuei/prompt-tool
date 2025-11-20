@@ -33,11 +33,13 @@ export class OpenAIProvider extends BaseProvider {
         isOpenAICompatible: true,
         supportsModelDiscovery: false,
         icon: 'openai-icon',
+        description: 'Most popular AI with strong creative and coding capabilities',
         documentation: 'https://platform.openai.com/docs',
     }
 
     readonly capabilities: ProviderCapabilities = {
         streaming: true,
+        supportsStreaming: true,
         functionCalling: true,
         vision: true,
         embeddings: true,

@@ -16,3 +16,6 @@ export async function checkProviderHealth(
         }
     }
 }
+
+// Export alias for compatibility
+export const checkHealth = checkProviderHealth
