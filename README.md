@@ -140,6 +140,34 @@ All providers work through a **single, consistent interface** - write once, run 
 
 ### Option 1: Docker (Easiest) 🐳
 
+**Using Pre-built Image (Fastest):**
+
+```bash
+# Pull and run from Docker Hub
+docker pull amanasmuei/easyprompt:latest
+
+# Run with your API key(s) and rate limiting
+docker run -d -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-key \
+  -e ENABLE_ANTHROPIC=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# Or with multiple providers
+docker run -d -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-anthropic-key \
+  -e OPENAI_API_KEY=your-openai-key \
+  -e ENABLE_ANTHROPIC=true \
+  -e ENABLE_OPENAI=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# Open browser
+open http://localhost:3000
+```
+
+**Using Docker Compose:**
+
 ```bash
 # Clone the repository
 git clone https://github.com/amanasmuei/easyprompt.git
@@ -157,6 +185,8 @@ open http://localhost:3000
 ```
 
 **📖 Docker Guide:** See [DOCKER.md](./DOCKER.md) for complete Docker setup instructions.
+
+**🐳 Docker Hub:** [amanasmuei/easyprompt](https://hub.docker.com/r/amanasmuei/easyprompt)
 
 ### Option 2: Node.js (Traditional)
 

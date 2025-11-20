@@ -9,7 +9,7 @@ export const MAX_PROMPT_LENGTH = 5000
 export const MIN_PROMPT_LENGTH = 10
 
 // Rate limiting
-export const RATE_LIMIT_REQUESTS = 20
+export const RATE_LIMIT_REQUESTS = 100
 export const RATE_LIMIT_WINDOW = '60 s' // 60 seconds
 
 // Provider defaults

@@ -6,7 +6,7 @@ import { Redis } from '@upstash/redis'
 // Rate Limiting Configuration
 // ========================================
 
-const RATE_LIMIT_REQUESTS = 20 // requests per window
+const RATE_LIMIT_REQUESTS = 100 // requests per window
 const RATE_LIMIT_WINDOW = '60 s' // 60 seconds
 
 // ========================================

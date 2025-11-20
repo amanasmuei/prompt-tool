@@ -14,7 +14,111 @@ This guide explains how to run EasyPrompt using Docker for easy testing and depl
 
 ## 🚀 Quick Start
 
-### Option 1: Using Docker Compose (Recommended)
+### ⚡ Quick Copy-Paste Commands
+
+**Just want to try it quickly?** Copy and run one of these:
+
+```bash
+# Free & Local (with Ollama)
+docker run -d -p 3000:3000 \
+  -e ENABLE_OLLAMA=true \
+  -e OLLAMA_ENDPOINT=http://host.docker.internal:11434 \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# With Anthropic Claude
+docker run -d -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-key-here \
+  -e ENABLE_ANTHROPIC=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# Multi-Provider (Recommended)
+docker run -d -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-key \
+  -e OPENAI_API_KEY=your-key \
+  -e GOOGLE_API_KEY=your-key \
+  -e ENABLE_ANTHROPIC=true \
+  -e ENABLE_OPENAI=true \
+  -e ENABLE_GOOGLE=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+```
+
+Then open: http://localhost:3000
+
+---
+
+### Option 1: Pre-built Image from Docker Hub (Fastest) ⚡
+
+```bash
+# 1. Pull the image
+docker pull amanasmuei/easyprompt:latest
+
+# 2. Run with your API key(s)
+# Option A: Single Provider (Anthropic)
+docker run -d \
+  --name easyprompt \
+  -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-key-here \
+  -e ENABLE_ANTHROPIC=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# Option B: Multiple Providers (Recommended)
+docker run -d \
+  --name easyprompt \
+  -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-anthropic-key \
+  -e OPENAI_API_KEY=your-openai-key \
+  -e GOOGLE_API_KEY=your-google-key \
+  -e ENABLE_ANTHROPIC=true \
+  -e ENABLE_OPENAI=true \
+  -e ENABLE_GOOGLE=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# Option C: With Ollama (Local) + Commercial
+docker run -d \
+  --name easyprompt \
+  -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-key-here \
+  -e ENABLE_ANTHROPIC=true \
+  -e OLLAMA_ENDPOINT=http://host.docker.internal:11434 \
+  -e ENABLE_OLLAMA=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:latest
+
+# 3. Open browser
+open http://localhost:3000
+```
+
+**Available Tags:**
+- `amanasmuei/easyprompt:latest` - Latest stable version
+- `amanasmuei/easyprompt:1.0.0-beta` - Specific version
+- `amanasmuei/easyprompt:1.0` - Major.minor version
+- `amanasmuei/easyprompt:1` - Major version
+
+### Option 2: Using Docker Compose with Pre-built Image (Recommended)
+
+```bash
+# 1. Download docker-compose.yml
+curl -O https://raw.githubusercontent.com/amanasmuei/easyprompt/main/docker-compose.yml
+
+# 2. Create environment file
+cat > .env.local << EOF
+ANTHROPIC_API_KEY=your-key-here
+ENABLE_ANTHROPIC=true
+EOF
+
+# 3. Start with Docker Compose
+docker-compose up -d
+
+# 4. Open browser
+open http://localhost:3000
+```
+
+### Option 3: Build from Source
 
 ```bash
 # 1. Clone the repository
@@ -27,28 +131,10 @@ cp .env.example .env.local
 # 3. Edit .env.local with your API keys
 nano .env.local
 
-# 4. Start with Docker Compose
-docker-compose up -d
+# 4. Build and start
+docker-compose up -d --build
 
 # 5. Open browser
-open http://localhost:3000
-```
-
-### Option 2: Using Docker only
-
-```bash
-# 1. Build the image
-docker build -t easyprompt:latest .
-
-# 2. Run the container
-docker run -d \
-  --name easyprompt \
-  -p 3000:3000 \
-  -e ANTHROPIC_API_KEY=your-key \
-  -e ENABLE_ANTHROPIC=true \
-  easyprompt:latest
-
-# 3. Open browser
 open http://localhost:3000
 ```
 
@@ -61,23 +147,136 @@ open http://localhost:3000
 Create a `.env.local` file with your configuration:
 
 ```env
-# AI Providers (add at least one)
-ANTHROPIC_API_KEY=sk-ant-your-key
-OPENAI_API_KEY=sk-your-key
-GOOGLE_API_KEY=your-key
+# ========================================
+# Commercial AI Providers
+# ========================================
 
-# Enable providers
+# Anthropic Claude (Recommended)
+ANTHROPIC_API_KEY=sk-ant-your-key
 ENABLE_ANTHROPIC=true
+
+# OpenAI GPT
+OPENAI_API_KEY=sk-your-key
 ENABLE_OPENAI=true
+
+# Google Gemini
+GOOGLE_API_KEY=your-key
 ENABLE_GOOGLE=true
 
-# Ollama (for local models)
+# ========================================
+# Open-Source Providers
+# ========================================
+
+# Ollama (Local - Free)
+# Use host.docker.internal to access Ollama on host machine
 OLLAMA_ENDPOINT=http://host.docker.internal:11434
 ENABLE_OLLAMA=true
 
-# Rate Limiting (optional)
+# Hugging Face (Cloud - Free tier)
+HUGGINGFACE_API_KEY=hf_your-key
+ENABLE_HUGGINGFACE=true
+
+# Together AI (Cloud)
+TOGETHER_API_KEY=your-key
+ENABLE_TOGETHER=true
+
+# Replicate (Cloud)
+REPLICATE_API_KEY=r8_your-key
+ENABLE_REPLICATE=true
+
+# ========================================
+# Rate Limiting
+# ========================================
+
+# Development: Use in-memory (no Redis needed)
+USE_MEMORY_RATE_LIMIT=true
+
+# Production: Use Upstash Redis
+# UPSTASH_REDIS_REST_URL=https://your-instance.upstash.io
+# UPSTASH_REDIS_REST_TOKEN=your-token
+# USE_MEMORY_RATE_LIMIT=false
+
+# ========================================
+# App Configuration
+# ========================================
+
+# App settings
+NEXT_PUBLIC_APP_NAME=EasyPrompt
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_MAX_PROMPT_LENGTH=5000
+
+# Debug mode
+LOG_LEVEL=info
+DEBUG=false
+```
+
+**Quick Configuration Examples:**
+
+**Minimal (Free & Local):**
+```env
+ENABLE_OLLAMA=true
+OLLAMA_ENDPOINT=http://host.docker.internal:11434
 USE_MEMORY_RATE_LIMIT=true
 ```
+
+**Best Quality (Commercial):**
+```env
+ANTHROPIC_API_KEY=sk-ant-xxx
+ENABLE_ANTHROPIC=true
+OPENAI_API_KEY=sk-xxx
+ENABLE_OPENAI=true
+USE_MEMORY_RATE_LIMIT=true
+```
+
+**Hybrid (Recommended):**
+```env
+ANTHROPIC_API_KEY=sk-ant-xxx
+ENABLE_ANTHROPIC=true
+ENABLE_OLLAMA=true
+OLLAMA_ENDPOINT=http://host.docker.internal:11434
+HUGGINGFACE_API_KEY=hf_xxx
+ENABLE_HUGGINGFACE=true
+USE_MEMORY_RATE_LIMIT=true
+```
+
+### Complete Environment Variables Reference
+
+| Variable | Required | Default | Description |
+|----------|----------|---------|-------------|
+| **Commercial Providers** |
+| `ANTHROPIC_API_KEY` | No | - | Anthropic Claude API key |
+| `OPENAI_API_KEY` | No | - | OpenAI GPT API key |
+| `GOOGLE_API_KEY` | No | - | Google Gemini API key |
+| `ENABLE_ANTHROPIC` | No | `false` | Enable Anthropic provider |
+| `ENABLE_OPENAI` | No | `false` | Enable OpenAI provider |
+| `ENABLE_GOOGLE` | No | `false` | Enable Google provider |
+| **Open-Source Providers** |
+| `OLLAMA_ENDPOINT` | No | `http://127.0.0.1:11434` | Ollama server endpoint |
+| `ENABLE_OLLAMA` | No | `true` | Enable Ollama provider |
+| `HUGGINGFACE_API_KEY` | No | - | Hugging Face API key |
+| `ENABLE_HUGGINGFACE` | No | `false` | Enable Hugging Face provider |
+| `TOGETHER_API_KEY` | No | - | Together AI API key |
+| `ENABLE_TOGETHER` | No | `false` | Enable Together AI provider |
+| `REPLICATE_API_KEY` | No | - | Replicate API key |
+| `ENABLE_REPLICATE` | No | `false` | Enable Replicate provider |
+| **Rate Limiting** |
+| `USE_MEMORY_RATE_LIMIT` | No | `true` | Use in-memory rate limiting (dev) |
+| `UPSTASH_REDIS_REST_URL` | No | - | Upstash Redis URL (production) |
+| `UPSTASH_REDIS_REST_TOKEN` | No | - | Upstash Redis token (production) |
+| **App Configuration** |
+| `NEXT_PUBLIC_APP_NAME` | No | `EasyPrompt` | Application name |
+| `NEXT_PUBLIC_APP_URL` | No | `http://localhost:3000` | Application URL |
+| `NEXT_PUBLIC_MAX_PROMPT_LENGTH` | No | `5000` | Max prompt length (chars) |
+| `LOG_LEVEL` | No | `info` | Log level (debug/info/warn/error) |
+| `DEBUG` | No | `false` | Enable debug mode |
+| `NODE_ENV` | No | `production` | Node environment |
+
+**Notes:**
+- At least **one provider must be enabled** for the app to function
+- Commercial providers require API keys from respective platforms
+- Ollama runs locally and needs no API key
+- Rate limiting uses in-memory by default (suitable for development)
+- For production, use Upstash Redis for distributed rate limiting
 
 ### Docker Compose Configuration
 

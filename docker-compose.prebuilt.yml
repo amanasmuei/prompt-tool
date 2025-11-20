@@ -1,21 +1,12 @@
 version: '3.8'
 
-# Docker Compose configuration for EasyPrompt
-#
-# This builds from source. For faster startup, use the pre-built image:
-#   docker-compose -f docker-compose.prebuilt.yml up -d
-#
-# Or replace the 'build' section with:
-#   image: amanasmuei/easyprompt:latest
+# Docker Compose configuration using pre-built image from Docker Hub
+# This is faster than building from source
 
 services:
-  # EasyPrompt Web Application
+  # EasyPrompt Web Application (Pre-built)
   easyprompt:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    # Alternative: Use pre-built image (comment out 'build' above and uncomment below)
-    # image: amanasmuei/easyprompt:latest
+    image: amanasmuei/easyprompt:latest  # Pull from Docker Hub
     container_name: easyprompt
     ports:
       - "3000:3000"
@@ -52,7 +43,7 @@ services:
     networks:
       - easyprompt-network
     healthcheck:
-      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000/api/health', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
       interval: 30s
       timeout: 10s
       retries: 3
