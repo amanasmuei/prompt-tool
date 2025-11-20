@@ -14,14 +14,13 @@ Transform your AI prompts from amateur to professional with instant optimization
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
 
 [![Status](https://img.shields.io/badge/Status-Beta-green?style=for-the-badge)](./STATUS.md)
-[![Tests](https://img.shields.io/badge/Tests-13_Passing-success?style=for-the-badge)](./docs/internal/)
-[![Deployment](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](./DEPLOYMENT.md)
+[![Tests](https://img.shields.io/badge/Tests-13_Passing-success?style=for-the-badge)](./docs/archive/)
+[![Deployment](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](./docs/guides/deployment.md)
 
 [🚀 Quick Start](#quick-start) •
 [📖 Documentation](#documentation) •
 [✨ Features](#features) •
-[🤝 Contributing](./CONTRIBUTING.md) •
-[📋 Status](./STATUS.md)
+[🤝 Contributing](./docs/guides/contributing.md)
 
 </div>
 
@@ -31,18 +30,18 @@ Transform your AI prompts from amateur to professional with instant optimization
 
 ### 🤖 Multi-Provider AI Support
 
-Connect to **4 AI providers** with a unified interface (3 more planned):
+Connect to **7 AI providers** with a unified interface:
 
 **Commercial Providers:**
-- 🧠 **Anthropic Claude** - Sonnet 4 & Opus (latest models) ✅
-- 🤖 **OpenAI GPT** - GPT-4 Turbo & GPT-4o ✅
-- 🌐 **Google Gemini** - Gemini 1.5 Pro & Flash ✅
+- 🧠 **Anthropic Claude** - Sonnet 4 & Opus (latest models)
+- 🤖 **OpenAI GPT** - GPT-4 Turbo & GPT-4o
+- 🌐 **Google Gemini** - Gemini 1.5 Pro & Flash
 
 **Open-Source Providers:**
-- 🦙 **Ollama** - Run Llama, Mistral, Phi locally (100% private) ✅
-- 🤗 **Hugging Face** - Access 1000+ open-source models 🔜 *Coming Soon*
-- 🚀 **Together AI** - Fast inference for open models 🔜 *Coming Soon*
-- 🔁 **Replicate** - Run models via API 🔜 *Coming Soon*
+- 🦙 **Ollama** - Run Llama, Mistral, Phi locally (100% private)
+- 🤗 **Hugging Face** - Access 1000+ open-source models
+- 🚀 **Together AI** - Fast inference for open models
+- 🔁 **Replicate** - Run models via API
 
 All providers work through a **single, consistent interface** - write once, run anywhere!
 
@@ -76,10 +75,8 @@ All providers work through a **single, consistent interface** - write once, run 
   - 📊 **Analysis** - Data analysis, research, summarization
   - 🎨 **Creative** - Storytelling, brainstorming, content ideas
   - 🎓 **Education** - Lesson plans, explanations, tutoring
-
 - **Search & Filter** - Find templates by keyword, category, or tag
 - **Copy & Customize** - One-click copy or auto-fill in optimizer
-- **Category browsing** - Organized by use case
 
 #### 5. 🏥 Provider Health Monitoring
 - **Real-time status checks** - See which providers are online
@@ -95,15 +92,23 @@ All providers work through a **single, consistent interface** - write once, run 
 - **Provider-specific tips** - Optimize for each AI
 - **Advanced techniques** - Chain-of-thought, few-shot learning, role-playing
 
+#### 7. 🔐 User Authentication & Provider Management
+- **Secure user accounts** - Email/password authentication
+- **Encrypted API key storage** - AES-256-GCM encryption
+- **Per-user configurations** - Each user manages their own API keys
+- **Provider toggle** - Enable/disable providers per user
+- **Session management** - Secure HTTP-only cookies
+
 ---
 
 ### 🔒 Privacy & Security
 
 - ✅ **100% Local Option** - Run Ollama for complete privacy (no data leaves your machine)
-- ✅ **API Key Protection** - All keys stored in environment variables
+- ✅ **API Key Encryption** - Military-grade AES-256-GCM encryption for stored keys
+- ✅ **Password Security** - Bcrypt hashing with cost factor 12
 - ✅ **Input Validation** - Length limits (10-5000 chars) to prevent abuse
 - ✅ **Rate Limiting** - Built-in protection (100 requests/min) via Redis
-- ✅ **No Data Storage** - Prompts are not saved or logged
+- ✅ **No Data Logging** - Prompts are not saved or logged
 - ✅ **Security Headers** - CSP, X-Frame-Options, HSTS configured
 - ✅ **Type Safety** - Full TypeScript for reliability
 
@@ -148,47 +153,18 @@ All providers work through a **single, consistent interface** - write once, run 
 # Pull and run from Docker Hub
 docker pull amanasmuei/easyprompt:beta
 
-# Run with your API key(s) and rate limiting
+# Run with your API key(s)
 docker run -d -p 3000:3000 \
   -e ANTHROPIC_API_KEY=your-key \
   -e ENABLE_ANTHROPIC=true \
   -e USE_MEMORY_RATE_LIMIT=true \
   amanasmuei/easyprompt:beta
 
-# Or with multiple providers
-docker run -d -p 3000:3000 \
-  -e ANTHROPIC_API_KEY=your-anthropic-key \
-  -e OPENAI_API_KEY=your-openai-key \
-  -e ENABLE_ANTHROPIC=true \
-  -e ENABLE_OPENAI=true \
-  -e USE_MEMORY_RATE_LIMIT=true \
-  amanasmuei/easyprompt:beta
-
 # Open browser
 open http://localhost:3000
 ```
 
-**Using Docker Compose:**
-
-```bash
-# Clone the repository
-git clone https://github.com/amanasmuei/easyprompt.git
-cd easyprompt
-
-# Create environment file
-cp .env.example .env.local
-# Edit .env.local with your API keys
-
-# Start with Docker Compose
-docker-compose up -d
-
-# Open browser
-open http://localhost:3000
-```
-
-**📖 Docker Guide:** See [DOCKER.md](./DOCKER.md) for complete Docker setup instructions.
-
-**🐳 Docker Hub:** [amanasmuei/easyprompt](https://hub.docker.com/r/amanasmuei/easyprompt)
+**📖 Complete Docker Guide:** See [docs/getting-started/docker-setup.md](./docs/getting-started/docker-setup.md)
 
 ### Option 2: Node.js (Traditional)
 
@@ -208,9 +184,24 @@ npm run dev
 
 **Open** [http://localhost:3000](http://localhost:3000)
 
-**📚 New to EasyPrompt?** Read the [**Getting Started Guide**](./GETTING_STARTED.md) for detailed setup instructions.
+### Option 3: With Database (Full Features)
 
-### Prerequisites
+```bash
+# Start database services
+npm run db:start
+
+# Setup database
+npm run setup:dev
+
+# Start application
+npm run dev
+```
+
+**📚 Detailed Setup Guide:** See [docs/getting-started/README.md](./docs/getting-started/README.md)
+
+---
+
+## Prerequisites
 
 **For Docker:**
 - Docker 20.10+ and Docker Compose 2.0+
@@ -219,14 +210,18 @@ npm run dev
 **For Node.js:**
 - Node.js 20.9.0+ and npm 10.0.0+
 - At least ONE AI provider:
-  - 🆓 **Ollama** (free, local, private) - [Setup Guide](./GETTING_STARTED.md#option-1-free--local-ollama-)
-  - 💰 **Anthropic/OpenAI/Google** (paid, cloud) - [API Keys](./GETTING_STARTED.md#provider-setup)
+  - 🆓 **Ollama** (free, local, private)
+  - 💰 **Anthropic/OpenAI/Google** (paid, cloud)
+
+**For Database Features (Optional):**
+- PostgreSQL 13+ or Docker
+- Redis 7+ (optional, for rate limiting)
 
 ---
 
 ## Environment Setup
 
-### Option 1: Free & Local (Ollama)
+### Free & Local (Ollama)
 
 ```bash
 # Install Ollama
@@ -243,9 +238,10 @@ In `.env.local`:
 ```env
 OLLAMA_ENDPOINT=http://127.0.0.1:11434
 ENABLE_OLLAMA=true
+USE_MEMORY_RATE_LIMIT=true
 ```
 
-### Option 2: Commercial Providers
+### Commercial Providers
 
 Get API keys from:
 - [Anthropic Claude](https://console.anthropic.com)
@@ -257,49 +253,11 @@ In `.env.local`:
 ANTHROPIC_API_KEY=sk-ant-...
 OPENAI_API_KEY=sk-...
 GOOGLE_API_KEY=...
+ENABLE_ANTHROPIC=true
+ENABLE_OPENAI=true
+ENABLE_GOOGLE=true
+USE_MEMORY_RATE_LIMIT=true
 ```
-
-### Option 3: Open-Source Cloud
-
-Get API keys from:
-- [Hugging Face](https://huggingface.co/settings/tokens) (free tier)
-- [Together AI](https://api.together.xyz)
-- [Replicate](https://replicate.com/account/api-tokens)
-
-In `.env.local`:
-```env
-HUGGINGFACE_API_KEY=hf_...
-TOGETHER_API_KEY=...
-REPLICATE_API_KEY=r8_...
-```
-
----
-
-## Usage
-
-### Basic Prompt Optimization
-
-1. Visit **EasyPrompt**
-2. Select your AI provider
-3. Enter your prompt
-4. Click "Optimize My Prompt"
-5. See optimized version with improvements explained
-6. Copy and use!
-
-### Multi-Provider Comparison
-
-1. Go to **Compare** page
-2. Enter your prompt
-3. Click "Compare Across All Providers"
-4. See how different AIs optimize differently
-5. Choose the best optimization
-
-### Using Templates
-
-1. Visit **Templates** page
-2. Browse categories (Writing, Coding, Analysis, etc.)
-3. Click template to use
-4. Customize for your needs
 
 ---
 
@@ -308,12 +266,15 @@ REPLICATE_API_KEY=r8_...
 | Category | Technology |
 |----------|-----------|
 | Framework | Next.js 16 (Turbopack, React 19.2) |
-| Language | TypeScript 5.1+ |
+| Language | TypeScript 5.7+ |
 | Styling | Tailwind CSS 4 |
 | UI Components | Shadcn/UI, Radix UI |
+| Database | PostgreSQL 16, Prisma ORM |
+| Caching | Redis 7 |
 | AI SDKs | Anthropic, OpenAI, Google, Ollama, Hugging Face |
 | Rate Limiting | Upstash Redis |
-| Deployment | Vercel |
+| Authentication | NextAuth v5 |
+| Deployment | Vercel, Docker |
 
 ---
 
@@ -321,23 +282,57 @@ REPLICATE_API_KEY=r8_...
 
 ```
 easyprompt/
-├── app/                    # Next.js App Router
-│   ├── page.tsx           # Home page
-│   ├── compare/           # Multi-provider comparison
-│   ├── providers/         # Provider status
-│   ├── guide/             # Best practices
-│   └── templates/         # Prompt templates
+├── app/                        # Next.js App Router
+│   ├── page.tsx               # Home page (optimizer)
+│   ├── auth/                  # Authentication pages
+│   ├── settings/              # User settings & provider management
+│   ├── compare/               # Multi-provider comparison
+│   ├── providers/             # Provider status dashboard
+│   ├── guide/                 # Best practices guide
+│   └── templates/             # Prompt templates library
+│
 ├── components/
-│   ├── server/            # Server Components
-│   └── client/            # Client Components
+│   ├── features/              # Feature components
+│   ├── hooks/                 # Custom React hooks
+│   └── ui/                    # UI components (Shadcn)
+│
 ├── lib/
-│   ├── actions/           # Server Actions
-│   ├── providers/         # AI Provider adapters
-│   │   ├── commercial/    # Anthropic, OpenAI, Google
-│   │   └── open-source/   # Ollama, Hugging Face
-│   └── prompts/           # System prompts
-└── proxy.ts               # Rate limiting
+│   ├── actions/               # Server Actions
+│   ├── providers/             # AI Provider adapters
+│   │   ├── commercial/        # Anthropic, OpenAI, Google
+│   │   └── open-source/       # Ollama, Hugging Face
+│   ├── services/              # Business logic services
+│   ├── security/              # Encryption & password utilities
+│   ├── prompts/               # System prompts
+│   └── db/                    # Database client
+│
+├── docs/                       # Documentation
+│   ├── getting-started/       # Setup guides
+│   ├── guides/                # User guides
+│   ├── architecture/          # Technical architecture
+│   └── archive/               # Historical docs
+│
+├── prisma/                     # Database schema
+├── scripts/                    # Utility scripts
+└── __tests__/                  # Test files
 ```
+
+---
+
+## 📖 Documentation
+
+### Getting Started
+- **[Quick Start Guide](./docs/getting-started/README.md)** - Complete setup guide
+- **[Docker Setup](./docs/getting-started/docker-setup.md)** - Docker deployment guide
+- **[Project Status](./STATUS.md)** - Current development status
+- **[Changelog](./CHANGELOG.md)** - Version history
+
+### Guides
+- **[Contributing Guide](./docs/guides/contributing.md)** - How to contribute
+- **[Deployment Guide](./docs/guides/deployment.md)** - Production deployment
+
+### Architecture
+- **[Technical Architecture](./docs/architecture/README.md)** - System design and architecture
 
 ---
 
@@ -355,24 +350,28 @@ npm run lint:fix         # Fix ESLint issues
 npm run type-check       # TypeScript type checking
 npm run format           # Format with Prettier
 
-# Analysis
-npm run analyze          # Analyze bundle size
+# Testing
+npm run test             # Run tests
+npm run test:ui          # Run tests with UI
+npm run test:coverage    # Generate coverage report
+
+# Database (if using database features)
+npm run db:start         # Start PostgreSQL + Redis
+npm run db:stop          # Stop database services
+npm run db:status        # Check service status
+npm run prisma:studio    # Visual database editor
+npm run prisma:migrate   # Run database migrations
 ```
 
 ---
 
 ## Deployment
 
-### Option 1: Docker (Production Ready)
+### Docker (Production Ready)
 
-See [DOCKER.md](./DOCKER.md) for complete Docker deployment guide including:
-- Production configuration
-- Multi-provider setup
-- Ollama integration
-- Redis rate limiting
-- Security best practices
+See [docs/getting-started/docker-setup.md](./docs/getting-started/docker-setup.md) for complete Docker deployment guide.
 
-### Option 2: Vercel (Serverless)
+### Vercel (Serverless)
 
 ```bash
 # Install Vercel CLI
@@ -385,60 +384,9 @@ vercel
 vercel --prod
 ```
 
-### Environment Variables
+Set environment variables in Vercel Dashboard → Settings → Environment Variables.
 
-Set these in Vercel Dashboard → Settings → Environment Variables:
-
-**Required:**
-- `ANTHROPIC_API_KEY` or `OPENAI_API_KEY` or `GOOGLE_API_KEY` or Ollama running
-- `UPSTASH_REDIS_REST_URL` (for rate limiting)
-- `UPSTASH_REDIS_REST_TOKEN` (for rate limiting)
-
-**Optional:**
-- `HUGGINGFACE_API_KEY`
-- `TOGETHER_API_KEY`
-- `REPLICATE_API_KEY`
-
----
-
-## Configuration
-
-### Next.js 16 Features
-
-This project uses the latest Next.js 16 features:
-
-- ✅ **Turbopack** - 10x faster bundling
-- ✅ **"use cache"** - Component-level caching
-- ✅ **proxy.ts** - Rate limiting (replaces middleware.ts)
-- ✅ **React 19.2** - View Transitions
-- ✅ **React Compiler** - Automatic memoization
-
-### Rate Limiting
-
-Default: 100 requests per minute per IP
-
-Configure in `proxy.ts`:
-```typescript
-limiter: Ratelimit.slidingWindow(100, '60 s')
-```
-
----
-
-## 📖 Documentation
-
-### For Users
-- **[Getting Started](./GETTING_STARTED.md)** - Complete setup guide for beginners
-- **[Project Status](./STATUS.md)** - Current development status
-- **[Changelog](./CHANGELOG.md)** - Version history and updates
-
-### For Developers
-- **[Architecture](./ARCHITECTURE.md)** - Technical architecture and design
-- **[Contributing](./CONTRIBUTING.md)** - How to contribute to the project
-- **[Deployment](./DEPLOYMENT.md)** - Production deployment guide
-
-### For Advanced Users
-- **[Documentation Index](./docs/)** - All documentation
-- **[Internal Docs](./docs/internal/)** - Development reports and analysis
+See [docs/guides/deployment.md](./docs/guides/deployment.md) for complete deployment guide.
 
 ---
 
@@ -459,39 +407,34 @@ ollama pull llama3.2
 
 ### Rate limit errors
 
-- Check Upstash Redis connection
-- Verify environment variables
+- Check Redis connection
 - For development, set `USE_MEMORY_RATE_LIMIT=true`
 
 ### Build errors
 
 ```bash
-# Clear Next.js cache
-rm -rf .next
-
-# Reinstall dependencies
-rm -rf node_modules package-lock.json
+# Clear cache and reinstall
+rm -rf .next node_modules package-lock.json
 npm install
-
-# Check Node version
-node --version  # Should be 20.9.0+
 ```
 
----
+### Database connection errors
 
-## Performance
+```bash
+# Check if services are running
+npm run db:status
 
-Target metrics:
-- Page Load: < 1.5s
-- Optimization Time: < 3s
-- Lighthouse Score: 95+
-- Mobile Performance: 95+
+# Restart services
+npm run db:restart
+```
+
+**More troubleshooting:** See [docs/getting-started/docker-setup.md#troubleshooting](./docs/getting-started/docker-setup.md#troubleshooting)
 
 ---
 
 ## Contributing
 
-Contributions are welcome! Please read [CONTRIBUTING.md](./CONTRIBUTING.md) for details.
+Contributions are welcome! Please read [docs/guides/contributing.md](./docs/guides/contributing.md) for details.
 
 1. Fork the repository
 2. Create your feature branch (`git checkout -b feature/amazing-feature`)
@@ -519,7 +462,7 @@ MIT License - see [LICENSE](./LICENSE) file for details
 
 - **Issues:** [GitHub Issues](https://github.com/amanasmuei/easyprompt/issues)
 - **Discussions:** [GitHub Discussions](https://github.com/amanasmuei/easyprompt/discussions)
-- **Documentation:** [Architecture Guide](./ARCHITECTURE.md)
+- **Documentation:** [Full Docs](./docs/)
 
 ---
 

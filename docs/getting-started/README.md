@@ -6,7 +6,7 @@ Welcome! This guide will help you get EasyPrompt running in minutes.
 
 ## What is EasyPrompt?
 
-EasyPrompt transforms amateur AI prompts into professional ones instantly. It analyzes your prompts, identifies issues, and generates optimized versions across multiple AI providers.
+EasyPrompt is an AI prompt optimization platform that transforms amateur AI prompts into professional ones instantly. It analyzes your prompts, identifies issues, and generates optimized versions across multiple AI providers.
 
 **Perfect for:**
 - Developers using AI APIs
@@ -16,52 +16,92 @@ EasyPrompt transforms amateur AI prompts into professional ones instantly. It an
 
 ---
 
+## Quick Start (30 Seconds)
+
+**Using Docker (Recommended):**
+
+```bash
+# With Anthropic Claude
+docker run -d -p 3000:3000 \
+  -e ANTHROPIC_API_KEY=your-key \
+  -e ENABLE_ANTHROPIC=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:beta
+
+# Or with database support (for user authentication)
+npm run db:start && npm run setup:dev && npm run dev
+```
+
+**Open** http://localhost:3000
+
+---
+
 ## Prerequisites
 
 Before you begin, make sure you have:
 
+### For Docker Setup
+- ✅ **Docker 20.10+** ([Download](https://docs.docker.com/get-docker/))
+- ✅ **Docker Compose 2.0+** (included with Docker Desktop)
+- ✅ **At least ONE AI provider** (see options below)
+
+### For Node.js Setup
 - ✅ **Node.js 20.9.0+** ([Download](https://nodejs.org/))
 - ✅ **npm 10.0.0+** (comes with Node.js)
 - ✅ **At least ONE AI provider** (see options below)
+
+### For Database Features (Optional)
+- ✅ **PostgreSQL 13+** or Docker
+- ✅ **Redis 7+** (optional, for rate limiting)
 
 ---
 
 ## Installation
 
-### Step 1: Clone the Repository
+### Option 1: Docker (Fastest) ⚡
+
+**Using Pre-built Image from Docker Hub:**
 
 ```bash
+# Pull the latest image
+docker pull amanasmuei/easyprompt:beta
+
+# Run with your API key
+docker run -d -p 3000:3000 \
+  --name easyprompt \
+  -e ANTHROPIC_API_KEY=your-key-here \
+  -e ENABLE_ANTHROPIC=true \
+  -e USE_MEMORY_RATE_LIMIT=true \
+  amanasmuei/easyprompt:beta
+
+# Open browser
+open http://localhost:3000
+```
+
+**📖 More Docker Options:** See [docker-setup.md](./docker-setup.md) for complete Docker setup instructions.
+
+### Option 2: Node.js (Traditional)
+
+```bash
+# 1. Clone the repository
 git clone https://github.com/amanasmuei/easyprompt.git
 cd easyprompt
-```
 
-### Step 2: Install Dependencies
-
-```bash
+# 2. Install dependencies
 npm install
-```
 
-This will install all required packages (~650 packages, takes 1-2 minutes).
-
-### Step 3: Set Up Environment
-
-```bash
-# Copy the environment template
+# 3. Copy environment template
 cp .env.example .env.local
 
-# Open it in your editor
-nano .env.local
-# or
-code .env.local
+# 4. Edit .env.local with your settings
+nano .env.local  # or use your preferred editor
 ```
-
-### Step 4: Configure a Provider
-
-Choose ONE option below (you can add more later):
 
 ---
 
-## Provider Setup
+## Provider Configuration
+
+Choose **at least ONE** provider option below:
 
 ### Option 1: Free & Local (Ollama) 🆓
 
@@ -82,6 +122,7 @@ In `.env.local`:
 ```env
 OLLAMA_ENDPOINT=http://127.0.0.1:11434
 ENABLE_OLLAMA=true
+USE_MEMORY_RATE_LIMIT=true
 ```
 
 **Advantages:**
@@ -89,8 +130,6 @@ ENABLE_OLLAMA=true
 - ✅ 100% private (runs locally)
 - ✅ No API keys needed
 - ✅ Works offline
-
----
 
 ### Option 2: Anthropic Claude 🧠
 
@@ -102,11 +141,10 @@ ENABLE_OLLAMA=true
 ```env
 ANTHROPIC_API_KEY=sk-ant-your-key-here
 ENABLE_ANTHROPIC=true
+USE_MEMORY_RATE_LIMIT=true
 ```
 
 **Pricing:** ~$3-15 per 1M tokens
-
----
 
 ### Option 3: OpenAI GPT 🤖
 
@@ -118,11 +156,10 @@ ENABLE_ANTHROPIC=true
 ```env
 OPENAI_API_KEY=sk-your-key-here
 ENABLE_OPENAI=true
+USE_MEMORY_RATE_LIMIT=true
 ```
 
 **Pricing:** ~$0.50-15 per 1M tokens
-
----
 
 ### Option 4: Google Gemini 🌐
 
@@ -134,9 +171,30 @@ ENABLE_OPENAI=true
 ```env
 GOOGLE_API_KEY=your-key-here
 ENABLE_GOOGLE=true
+USE_MEMORY_RATE_LIMIT=true
 ```
 
 **Pricing:** Free tier available, then ~$0.25-7 per 1M tokens
+
+---
+
+## Database Setup (Optional)
+
+For user authentication and provider management features:
+
+### Quick Setup with Docker
+
+```bash
+# Start PostgreSQL + Redis
+npm run db:start
+
+# Setup database tables
+npm run setup:dev
+```
+
+### Manual Setup
+
+See [docker-setup.md](./docker-setup.md#database-setup) for detailed database configuration.
 
 ---
 
@@ -145,7 +203,11 @@ ENABLE_GOOGLE=true
 ### Development Mode
 
 ```bash
+# Without database
 npm run dev
+
+# With database (after db:start)
+npm run setup:dev && npm run dev
 ```
 
 **Output:**
@@ -157,6 +219,13 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+### Production Mode
+
+```bash
+npm run build
+npm start
+```
 
 ---
 
@@ -195,9 +264,9 @@ You'll see:
 
 ---
 
-## Using Features
+## Key Features
 
-### Compare Across Providers
+### 🔄 Compare Across Providers
 
 1. Go to [localhost:3000/compare](http://localhost:3000/compare)
 2. Enter your prompt
@@ -205,26 +274,59 @@ You'll see:
 4. See how different AIs optimize differently
 5. Choose the best optimization
 
-### Browse Templates
+### 📚 Browse Templates
 
 1. Go to [localhost:3000/templates](http://localhost:3000/templates)
-2. Browse 7 ready-to-use templates
+2. Browse 50+ templates across 5 categories
 3. Filter by category (Writing, Coding, Analysis, etc.)
 4. Click to copy and customize
 
-### Monitor Provider Health
+### 🏥 Monitor Provider Health
 
 1. Go to [localhost:3000/providers](http://localhost:3000/providers)
 2. See real-time status of all providers
 3. Check latency and availability
 4. Discover local Ollama models
 
-### Learn Best Practices
+### 📖 Learn Best Practices
 
 1. Go to [localhost:3000/guide](http://localhost:3000/guide)
 2. Read prompt engineering principles
 3. See good vs bad examples
 4. Learn provider-specific tips
+
+---
+
+## Common Commands
+
+### Development
+
+```bash
+npm run dev              # Start dev server (Turbopack)
+npm run build            # Build for production
+npm start                # Start production server
+```
+
+### Code Quality
+
+```bash
+npm run lint             # Check code style
+npm run lint:fix         # Fix code style issues
+npm run type-check       # TypeScript validation
+npm run format           # Format with Prettier
+```
+
+### Database Operations (if using database features)
+
+```bash
+npm run db:start         # Start PostgreSQL + Redis
+npm run db:start:tools   # Start with web management UIs
+npm run db:status        # Check service status
+npm run db:stop          # Stop containers
+npm run db:logs          # View logs
+npm run db:psql          # Connect to PostgreSQL
+npm run prisma:studio    # Visual database editor
+```
 
 ---
 
@@ -245,9 +347,9 @@ ollama pull llama3.2
 
 ### API Key Errors
 
-- ✅ Check key is correct (no spaces)
-- ✅ Verify provider is enabled in .env.local
-- ✅ Restart development server after changes
+- ✅ Check key is correct (no extra spaces)
+- ✅ Verify provider is enabled in `.env.local`
+- ✅ Restart dev server after changing `.env.local`
 
 ### Port Already in Use
 
@@ -268,18 +370,24 @@ npm install
 npm run dev
 ```
 
+### Database Connection Errors
+
+```bash
+# Check if PostgreSQL is running
+npm run db:status
+
+# Restart containers
+npm run db:restart
+
+# View error logs
+npm run db:logs
+```
+
 ---
 
 ## Next Steps
 
-### Explore Documentation
-
-- **[README.md](./README.md)** - Project overview
-- **[ARCHITECTURE.md](./ARCHITECTURE.md)** - Technical details
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Production deployment
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Contributing guide
-
-### Add More Providers
+### Add Multiple Providers
 
 Edit `.env.local` to add multiple providers:
 
@@ -297,38 +405,31 @@ ENABLE_GOOGLE=true
 ENABLE_OLLAMA=true
 ```
 
-### Customize Settings
+### Explore Documentation
 
-Edit `lib/constants.ts` for:
-- Max prompt length (default: 5000)
-- Rate limits (default: 20/min)
-- Timeouts and caching
+- **[../guides/deployment.md](../guides/deployment.md)** - Production deployment
+- **[../guides/contributing.md](../guides/contributing.md)** - Contributing guide
+- **[../architecture/README.md](../architecture/README.md)** - Technical architecture
+- **[docker-setup.md](./docker-setup.md)** - Complete Docker guide
 
----
+### Enable User Authentication
 
-## Common Use Cases
+```bash
+# Start database services
+npm run db:start
 
-### For Developers
+# Run database migrations
+npm run setup:dev
 
-```javascript
-// Use optimized prompts in your code
-const optimized = await optimizePrompt("write a function that...")
-// Use the optimized version in your AI API call
+# Start application
+npm run dev
 ```
 
-### For Content Creators
-
-1. Write your prompt in natural language
-2. Optimize with EasyPrompt
-3. Use optimized version in ChatGPT/Claude
-4. Get better results!
-
-### For Teams
-
-1. Share optimized prompts via templates
-2. Compare provider results before choosing
-3. Monitor provider performance
-4. Standardize prompt quality
+Now you can:
+- ✅ Create user accounts
+- ✅ Store encrypted API keys per user
+- ✅ Manage provider configurations
+- ✅ Share prompts and templates
 
 ---
 
@@ -338,11 +439,11 @@ const optimized = await optimizePrompt("write a function that...")
 
 - **Issues**: [GitHub Issues](https://github.com/amanasmuei/easyprompt/issues)
 - **Discussions**: [GitHub Discussions](https://github.com/amanasmuei/easyprompt/discussions)
-- **Documentation**: [docs/](./docs/)
+- **Documentation**: [Full Documentation](../)
 
 ### Contributing
 
-We welcome contributions! See [CONTRIBUTING.md](./CONTRIBUTING.md)
+We welcome contributions! See [../guides/contributing.md](../guides/contributing.md)
 
 ---
 

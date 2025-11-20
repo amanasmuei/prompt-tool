@@ -1,226 +1,185 @@
-# EasyPrompt Documentation Index
+# EasyPrompt Documentation
 
-Welcome to the EasyPrompt documentation! This index helps you find exactly what you need.
-
----
-
-## 📚 Getting Started
-
-### For First-Time Users
-
-1. **[Getting Started Guide](../GETTING_STARTED.md)** ⭐ START HERE
-   - Installation instructions
-   - Provider setup (Ollama, Anthropic, OpenAI, Google)
-   - Your first prompt optimization
-   - Troubleshooting common issues
-
-2. **[Project Status](../STATUS.md)**
-   - Current version and status
-   - What's working
-   - Known issues
-   - Roadmap
-
-3. **[README](../README.md)**
-   - Project overview
-   - Features list
-   - Quick start commands
+Welcome to the EasyPrompt documentation! This guide will help you navigate all available documentation.
 
 ---
 
-## 🛠️ For Developers
+## 🚀 Getting Started
 
-### Setting Up Development
+New to EasyPrompt? Start here:
 
-1. **[Contributing Guide](../CONTRIBUTING.md)**
-   - Development setup
-   - Code standards
-   - Pull request process
-   - Testing requirements
+### Quick Start
+- **[Getting Started Guide](./getting-started/README.md)** - Complete setup guide for new users
+- **[Docker Setup Guide](./getting-started/docker-setup.md)** - Docker deployment and configuration
 
-2. **[Architecture Documentation](../ARCHITECTURE.md)**
-   - System design
-   - Component structure
-   - Provider implementation
-   - Data flow
-
-3. **[Deployment Guide](../DEPLOYMENT.md)**
-   - Production deployment
-   - Environment variables
-   - Vercel setup
-   - Upstash Redis configuration
-
-4. **[Docker Guide](../DOCKER.md)** 🐳
-   - Docker setup and configuration
-   - Docker Compose orchestration
-   - Ollama integration
-   - Production best practices
-   - Troubleshooting
+### First Steps
+1. Choose your installation method (Docker or Node.js)
+2. Configure at least one AI provider
+3. Start the development server
+4. Begin optimizing prompts!
 
 ---
 
-## 📖 Reference Documentation
+## 📚 User Guides
+
+### Deployment & Operations
+- **[Deployment Guide](./guides/deployment.md)** - Deploy to production (Vercel, Docker)
+- **[Contributing Guide](./guides/contributing.md)** - How to contribute to the project
+
+### Features
+- **Prompt Optimization** - Transform amateur prompts to professional quality
+- **Multi-Provider Comparison** - Compare results across different AI providers
+- **Template Library** - Browse 50+ ready-to-use templates
+- **Provider Health Monitoring** - Real-time provider status and diagnostics
+- **User Authentication** - Secure account management with encrypted API keys
+
+---
+
+## 🏗️ Architecture & Technical Documentation
+
+For developers and those interested in the technical details:
+
+- **[Technical Architecture](./architecture/README.md)** - Complete system architecture
+- **[Architecture Diagrams](./architecture/diagrams/)** - Visual system diagrams
+
+### Key Architectural Components
+
+**Frontend:**
+- Next.js 16 with Turbopack
+- React 19.2 with Server Components
+- Tailwind CSS 4 for styling
+- Shadcn/UI components
+
+**Backend:**
+- Server Actions for API logic
+- Multi-provider AI adapter system
+- PostgreSQL for data persistence
+- Redis for caching and rate limiting
+
+**Security:**
+- AES-256-GCM encryption for API keys
+- Bcrypt password hashing
+- NextAuth v5 for authentication
+- HTTP-only cookies for sessions
+
+---
+
+## 🗂️ Documentation Structure
+
+```
+docs/
+├── README.md                      # This file - documentation index
+│
+├── getting-started/               # Setup and installation guides
+│   ├── README.md                  # Main getting started guide
+│   └── docker-setup.md            # Docker-specific setup
+│
+├── guides/                        # User and developer guides
+│   ├── contributing.md            # How to contribute
+│   └── deployment.md              # Production deployment
+│
+├── architecture/                  # Technical architecture
+│   ├── README.md                  # Architecture overview
+│   └── diagrams/                  # Architecture diagrams
+│       └── architecture-diagram.png
+│
+└── archive/                       # Historical documentation
+    ├── internal/                  # Old internal project docs
+    ├── IMPLEMENTATION_PLAN.md     # Original implementation plan
+    ├── IMPLEMENTATION_SUMMARY.md  # Implementation summary
+    └── PROVIDER_MANAGEMENT_STATUS.md
+```
+
+---
+
+## 🔍 Quick Links by Topic
+
+### Installation & Setup
+- [Node.js Installation](./getting-started/README.md#installation)
+- [Docker Installation](./getting-started/docker-setup.md#quick-start)
+- [Database Setup](./getting-started/docker-setup.md#database-setup)
+- [Environment Configuration](./getting-started/README.md#provider-configuration)
 
 ### Configuration
+- [AI Provider Setup](./getting-started/README.md#provider-configuration)
+- [Environment Variables](./getting-started/docker-setup.md#environment-variables)
+- [Database Configuration](./getting-started/docker-setup.md#database-configuration)
+- [Security Settings](./architecture/README.md#security)
 
-- **[Environment Variables](../GETTING_STARTED.md#provider-setup)**
-  - Required variables
-  - Optional settings
-  - Provider-specific config
+### Deployment
+- [Docker Deployment](./getting-started/docker-setup.md#production-deployment)
+- [Vercel Deployment](./guides/deployment.md#vercel-deployment)
+- [Environment Variables](./guides/deployment.md#environment-variables-setup)
+- [Production Best Practices](./getting-started/docker-setup.md#best-practices)
 
-- **[Constants](../lib/constants.ts)**
-  - Rate limits
-  - Prompt constraints
-  - Timeouts
-  - Error messages
+### Development
+- [Contributing Guidelines](./guides/contributing.md)
+- [Code Style](./guides/contributing.md#code-style)
+- [Testing](./guides/contributing.md#testing)
+- [Pull Request Process](./guides/contributing.md#pull-request-process)
 
-### API Reference
-
-- **Server Actions**
-  - [`analyzePrompt`](../lib/actions/analyze.ts) - Analyze prompt quality
-  - [`optimizePrompt`](../lib/actions/optimize.ts) - Generate optimized version
-  - [`comparePrompts`](../lib/actions/compare.ts) - Multi-provider comparison
-  - [`checkHealth`](../lib/actions/health.ts) - Provider health checks
-  - [`discoverModels`](../lib/actions/discover-models.ts) - Detect Ollama models
-
-- **Provider System**
-  - [Base Provider](../lib/providers/base.ts) - Abstract provider interface
-  - [Factory Pattern](../lib/providers/factory.ts) - Provider instantiation
-  - [Error Handling](../lib/providers/errors.ts) - Custom error types
+### Troubleshooting
+- [Common Issues](./getting-started/README.md#troubleshooting)
+- [Docker Troubleshooting](./getting-started/docker-setup.md#troubleshooting)
+- [Database Issues](./getting-started/docker-setup.md#database-connection-issues)
 
 ---
 
-## 📊 Project Management
+## 🆘 Getting Help
 
-### Status & Progress
+### Documentation Issues
+If you can't find what you're looking for or notice documentation errors:
+- [Open a documentation issue](https://github.com/amanasmuei/easyprompt/issues/new?labels=documentation)
+- [Start a discussion](https://github.com/amanasmuei/easyprompt/discussions)
 
-- **[Status](../STATUS.md)** - Current state and readiness
-- **[Changelog](../CHANGELOG.md)** - Version history and updates
-
-### Internal Documentation
-
-For development team and contributors:
-
-- **[Release Status](./internal/RELEASE_STATUS.md)** - Detailed release assessment
-- **[Final Report](./internal/FINAL_REPORT.md)** - Comprehensive project analysis
-- **[Completion Plan](./internal/PROJECT_COMPLETION_PLAN.md)** - Original implementation plan
-- **[Analysis Summary](./internal/ANALYSIS_SUMMARY.md)** - Initial codebase analysis
+### Technical Support
+- **Bug Reports:** [GitHub Issues](https://github.com/amanasmuei/easyprompt/issues)
+- **Questions:** [GitHub Discussions](https://github.com/amanasmuei/easyprompt/discussions)
+- **Feature Requests:** [GitHub Issues](https://github.com/amanasmuei/easyprompt/issues/new?labels=enhancement)
 
 ---
 
-## 🎯 By Use Case
+## 📖 Additional Resources
 
-### I want to...
+### External Documentation
+- [Next.js 16 Documentation](https://nextjs.org/docs)
+- [React 19 Documentation](https://react.dev/)
+- [TypeScript Documentation](https://www.typescriptlang.org/docs/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- [Docker Documentation](https://docs.docker.com/)
+- [PostgreSQL Documentation](https://www.postgresql.org/docs/)
 
-#### Use EasyPrompt
-→ Start with [Getting Started Guide](../GETTING_STARTED.md)
-
-#### Contribute Code
-→ Read [Contributing Guide](../CONTRIBUTING.md)
-
-#### Deploy to Production
-→ Follow [Deployment Guide](../DEPLOYMENT.md)
-
-#### Understand the Architecture
-→ Review [Architecture Docs](../ARCHITECTURE.md)
-
-#### Add a New Provider
-→ See [Provider Implementation](../ARCHITECTURE.md#provider-implementation-details)
-
-#### Report a Bug
-→ [Open an Issue](https://github.com/amanasmuei/easyprompt/issues)
-
-#### Ask a Question
-→ [Start a Discussion](https://github.com/amanasmuei/easyprompt/discussions)
+### AI Provider Documentation
+- [Anthropic Claude API](https://docs.anthropic.com/)
+- [OpenAI API](https://platform.openai.com/docs)
+- [Google Gemini API](https://ai.google.dev/docs)
+- [Ollama Documentation](https://github.com/ollama/ollama/blob/main/docs/)
+- [Hugging Face Inference API](https://huggingface.co/docs/api-inference/)
 
 ---
 
-## 🔍 Quick Links
+## 🔄 Documentation Updates
 
-### External Resources
+This documentation is continuously updated. Last major update: **2025-11-21**
 
-- **AI Providers**
-  - [Anthropic Claude](https://console.anthropic.com)
-  - [OpenAI Platform](https://platform.openai.com)
-  - [Google AI Studio](https://aistudio.google.com)
-  - [Ollama](https://ollama.ai)
+### Recent Changes
+- ✅ Consolidated multiple getting-started guides into single comprehensive guide
+- ✅ Created dedicated Docker setup guide
+- ✅ Reorganized documentation structure for better discoverability
+- ✅ Moved architecture docs to dedicated section
+- ✅ Archived outdated internal documentation
+- ✅ Updated all cross-references and links
 
-- **Frameworks & Tools**
-  - [Next.js 16 Docs](https://nextjs.org/docs)
-  - [React 19 Docs](https://react.dev)
-  - [TypeScript Handbook](https://www.typescriptlang.org/docs)
-  - [Tailwind CSS](https://tailwindcss.com/docs)
-
-- **Deployment**
-  - [Vercel](https://vercel.com/docs)
-  - [Upstash Redis](https://docs.upstash.com)
+### Contributing to Documentation
+Help us improve the documentation! See our [Contributing Guide](./guides/contributing.md#documentation) for details on how to contribute.
 
 ---
 
-## 📝 Documentation Structure
+## 📝 Documentation Versions
 
-```
-easyprompt/
-├── README.md                  # Project overview
-├── GETTING_STARTED.md         # User setup guide ⭐
-├── STATUS.md                  # Current status
-├── CHANGELOG.md               # Version history
-├── LICENSE                    # MIT License
-│
-├── ARCHITECTURE.md            # Technical architecture
-├── CONTRIBUTING.md            # Contribution guide
-├── DEPLOYMENT.md              # Deployment instructions
-│
-└── docs/
-    ├── README.md              # This file (documentation index)
-    ├── ARCHITECTURE_DIAGRAM.md # System diagrams
-    │
-    └── internal/              # Internal development docs
-        ├── RELEASE_STATUS.md
-        ├── FINAL_REPORT.md
-        ├── PROJECT_COMPLETION_PLAN.md
-        └── ANALYSIS_SUMMARY.md
-```
+- **Current (v1.0.0-beta.1):** Latest beta release documentation
+- **Archive:** Historical documentation available in [./archive/](./archive/)
 
 ---
 
-## 🆘 Need Help?
-
-- **Questions**: [GitHub Discussions](https://github.com/amanasmuei/easyprompt/discussions)
-- **Bugs**: [GitHub Issues](https://github.com/amanasmuei/easyprompt/issues)
-- **Security**: See [SECURITY.md](../SECURITY.md) (if applicable)
-
----
-
-## 🎓 Learning Path
-
-### Beginner → Intermediate → Advanced
-
-1. **Beginner** (0-1 hour)
-   - Read [README](../README.md)
-   - Follow [Getting Started](../GETTING_STARTED.md)
-   - Try optimizing your first prompt
-
-2. **Intermediate** (1-3 hours)
-   - Explore [Architecture](../ARCHITECTURE.md)
-   - Read [Contributing](../CONTRIBUTING.md)
-   - Set up development environment
-
-3. **Advanced** (3+ hours)
-   - Review [Internal Docs](./internal/)
-   - Study provider implementations
-   - Consider contributing features
-
----
-
-## 🔄 Keep Updated
-
-- **Star the repo** to get notifications
-- **Watch releases** for version updates
-- **Follow discussions** for community insights
-
----
-
-**Last Updated:** 2025-11-20
-**Version:** 1.0.0-beta
-
-[← Back to Main README](../README.md)
+**Need something specific?** Use your browser's search function (Ctrl/Cmd + F) to search this page, or explore the documentation structure above.
