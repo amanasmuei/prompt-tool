@@ -1,17 +1,31 @@
 # EasyPrompt
 
-> AI Prompt Optimization Platform with Multi-Provider Support
+<div align="center">
+
+### AI Prompt Optimization Platform with Multi-Provider Support
 
 Transform your AI prompts from amateur to professional with instant optimization across multiple AI providers.
 
-[![Next.js 16](https://img.shields.io/badge/Next.js-16-black)](https://nextjs.org/)
-[![React 19.2](https://img.shields.io/badge/React-19.2-blue)](https://react.dev/)
-[![TypeScript](https://img.shields.io/badge/TypeScript-5.1+-blue)](https://www.typescriptlang.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Next.js 16](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)](https://nextjs.org/)
+[![React 19](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)](https://react.dev/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=for-the-badge&logo=typescript)](https://www.typescriptlang.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](./LICENSE)
+
+[![Status](https://img.shields.io/badge/Status-Beta-green?style=for-the-badge)](./STATUS.md)
+[![Tests](https://img.shields.io/badge/Tests-13_Passing-success?style=for-the-badge)](./docs/internal/)
+[![Deployment](https://img.shields.io/badge/Deploy-Vercel-black?style=for-the-badge&logo=vercel)](./DEPLOYMENT.md)
+
+[🚀 Quick Start](#quick-start) •
+[📖 Documentation](#documentation) •
+[✨ Features](#features) •
+[🤝 Contributing](./CONTRIBUTING.md) •
+[📋 Status](./STATUS.md)
+
+</div>
 
 ---
 
-## Features
+## ✨ Features
 
 ### 🤖 Multi-Provider Support
 
@@ -40,38 +54,32 @@ Transform your AI prompts from amateur to professional with instant optimization
 
 ---
 
-## Quick Start
-
-### Prerequisites
-
-- **Node.js 20.9.0+** (required for Next.js 16)
-- **npm 10.0.0+**
-- **At least ONE of the following:**
-  - Ollama installed locally (free, private)
-  - API key from Anthropic, OpenAI, or Google
-  - Hugging Face account (free tier available)
-
-### Installation
+## 🚀 Quick Start
 
 ```bash
-# Clone the repository
+# Clone and install
 git clone https://github.com/amanasmuei/easyprompt.git
 cd easyprompt
-
-# Install dependencies
 npm install
 
-# Copy environment template
+# Configure (choose at least one provider)
 cp .env.example .env.local
+# Edit .env.local with your API keys
 
-# Add your API keys to .env.local
-nano .env.local
-
-# Start development server
+# Run
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+**Open** [http://localhost:3000](http://localhost:3000)
+
+**📚 New to EasyPrompt?** Read the [**Getting Started Guide**](./GETTING_STARTED.md) for detailed setup instructions.
+
+### Prerequisites
+
+- Node.js 20.9.0+ and npm 10.0.0+
+- At least ONE AI provider:
+  - 🆓 **Ollama** (free, local, private) - [Setup Guide](./GETTING_STARTED.md#option-1-free--local-ollama-)
+  - 💰 **Anthropic/OpenAI/Google** (paid, cloud) - [API Keys](./GETTING_STARTED.md#provider-setup)
 
 ---
 
@@ -266,11 +274,21 @@ limiter: Ratelimit.slidingWindow(20, '60 s')
 
 ---
 
-## Documentation
+## 📖 Documentation
 
-- **[Architecture Guide](./ARCHITECTURE.md)** - Complete technical documentation
-- **[Contributing Guide](./CONTRIBUTING.md)** - How to contribute
-- **[API Documentation](./docs/API.md)** - Provider API details
+### For Users
+- **[Getting Started](./GETTING_STARTED.md)** - Complete setup guide for beginners
+- **[Project Status](./STATUS.md)** - Current development status
+- **[Changelog](./CHANGELOG.md)** - Version history and updates
+
+### For Developers
+- **[Architecture](./ARCHITECTURE.md)** - Technical architecture and design
+- **[Contributing](./CONTRIBUTING.md)** - How to contribute to the project
+- **[Deployment](./DEPLOYMENT.md)** - Production deployment guide
+
+### For Advanced Users
+- **[Documentation Index](./docs/)** - All documentation
+- **[Internal Docs](./docs/internal/)** - Development reports and analysis
 
 ---
 
