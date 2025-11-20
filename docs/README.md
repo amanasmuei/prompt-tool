@@ -49,6 +49,13 @@ Welcome to the EasyPrompt documentation! This index helps you find exactly what 
    - Vercel setup
    - Upstash Redis configuration
 
+4. **[Docker Guide](../DOCKER.md)** 🐳
+   - Docker setup and configuration
+   - Docker Compose orchestration
+   - Ollama integration
+   - Production best practices
+   - Troubleshooting
+
 ---
 
 ## 📖 Reference Documentation

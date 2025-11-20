@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # EasyPrompt Web Application
+  easyprompt:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: easyprompt
+    ports:
+      - "3000:3000"
+    environment:
+      # Node Environment
+      - NODE_ENV=production
+
+      # AI Provider Configuration (set your API keys here)
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - HUGGINGFACE_API_KEY=${HUGGINGFACE_API_KEY:-}
+      - TOGETHER_API_KEY=${TOGETHER_API_KEY:-}
+      - REPLICATE_API_KEY=${REPLICATE_API_KEY:-}
+
+      # Ollama Configuration (connect to host or separate container)
+      - OLLAMA_ENDPOINT=${OLLAMA_ENDPOINT:-http://host.docker.internal:11434}
+      - ENABLE_OLLAMA=${ENABLE_OLLAMA:-false}
+
+      # Provider Toggles
+      - ENABLE_ANTHROPIC=${ENABLE_ANTHROPIC:-false}
+      - ENABLE_OPENAI=${ENABLE_OPENAI:-false}
+      - ENABLE_GOOGLE=${ENABLE_GOOGLE:-false}
+      - ENABLE_HUGGINGFACE=${ENABLE_HUGGINGFACE:-false}
+      - ENABLE_TOGETHER=${ENABLE_TOGETHER:-false}
+      - ENABLE_REPLICATE=${ENABLE_REPLICATE:-false}
+
+      # Rate Limiting (optional - uses in-memory if not set)
+      - UPSTASH_REDIS_REST_URL=${UPSTASH_REDIS_REST_URL:-}
+      - UPSTASH_REDIS_REST_TOKEN=${UPSTASH_REDIS_REST_TOKEN:-}
+      - USE_MEMORY_RATE_LIMIT=${USE_MEMORY_RATE_LIMIT:-true}
+
+    restart: unless-stopped
+    networks:
+      - easyprompt-network
+    healthcheck:
+      test: ["CMD", "node", "-e", "require('http').get('http://localhost:3000', (r) => {process.exit(r.statusCode === 200 ? 0 : 1)})"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # Optional: Redis for Rate Limiting (uncomment to use)
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: easyprompt-redis
+  #   ports:
+  #     - "6379:6379"
+  #   volumes:
+  #     - redis-data:/data
+  #   restart: unless-stopped
+  #   networks:
+  #     - easyprompt-network
+  #   healthcheck:
+  #     test: ["CMD", "redis-cli", "ping"]
+  #     interval: 10s
+  #     timeout: 3s
+  #     retries: 3
+
+  # Optional: Ollama (uncomment to run locally in Docker)
+  # ollama:
+  #   image: ollama/ollama:latest
+  #   container_name: easyprompt-ollama
+  #   ports:
+  #     - "11434:11434"
+  #   volumes:
+  #     - ollama-data:/root/.ollama
+  #   restart: unless-stopped
+  #   networks:
+  #     - easyprompt-network
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:11434/"]
+  #     interval: 30s
+  #     timeout: 10s
+  #     retries: 3
+
+networks:
+  easyprompt-network:
+    driver: bridge
+
+volumes:
+  redis-data:
+    driver: local
+  ollama-data:
+    driver: local

@@ -138,6 +138,28 @@ All providers work through a **single, consistent interface** - write once, run 
 
 ## 🚀 Quick Start
 
+### Option 1: Docker (Easiest) 🐳
+
+```bash
+# Clone the repository
+git clone https://github.com/amanasmuei/easyprompt.git
+cd easyprompt
+
+# Create environment file
+cp .env.example .env.local
+# Edit .env.local with your API keys
+
+# Start with Docker Compose
+docker-compose up -d
+
+# Open browser
+open http://localhost:3000
+```
+
+**📖 Docker Guide:** See [DOCKER.md](./DOCKER.md) for complete Docker setup instructions.
+
+### Option 2: Node.js (Traditional)
+
 ```bash
 # Clone and install
 git clone https://github.com/amanasmuei/easyprompt.git
@@ -158,6 +180,11 @@ npm run dev
 
 ### Prerequisites
 
+**For Docker:**
+- Docker 20.10+ and Docker Compose 2.0+
+- At least ONE AI provider configured
+
+**For Node.js:**
 - Node.js 20.9.0+ and npm 10.0.0+
 - At least ONE AI provider:
   - 🆓 **Ollama** (free, local, private) - [Setup Guide](./GETTING_STARTED.md#option-1-free--local-ollama-)
@@ -304,7 +331,16 @@ npm run analyze          # Analyze bundle size
 
 ## Deployment
 
-### Deploy to Vercel (Recommended)
+### Option 1: Docker (Production Ready)
+
+See [DOCKER.md](./DOCKER.md) for complete Docker deployment guide including:
+- Production configuration
+- Multi-provider setup
+- Ollama integration
+- Redis rate limiting
+- Security best practices
+
+### Option 2: Vercel (Serverless)
 
 ```bash
 # Install Vercel CLI
